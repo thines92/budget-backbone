@@ -11,6 +11,7 @@ var app = express();
 //Where to serve static content
 app.use( express.static( path.join( application_root, 'site') ) );
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 //Start server
 var port = 4711;
@@ -23,7 +24,7 @@ app.get('/', function(req, res) {
 	res.send(application_root);
 })
 
-app.get('/', function(req, res) {
+app.get('/transactions', function(req, res) {
 	return TransactionModel.find(function(err, transactions) {
 		if(!err) {
 			return res.send(transactions);
@@ -33,13 +34,21 @@ app.get('/', function(req, res) {
 	});
 });
 
-app.post('/', function(req, res) {
+app.post('/transactions', function(req, res) {
 	var transaction = new TransactionModel({
 		source: req.body.source,
 		category: req.body.category,
 		amount: req.body.amount,
 		outflow: req.body.outflow
 	});
+
+	// transaction.save()
+	// 			.then(function(item) {
+	// 				res.send('item saved');
+	// 			})
+	// 			.catch(function(err) {
+	// 				res.status(400).send('unable to save');
+	// 			})
 
 	return transaction.save(function(err) {
 		if(!err) {
@@ -51,7 +60,7 @@ app.post('/', function(req, res) {
 	})
 })
 
-mongoose.connect('mongodb://localhost/library_database');
+mongoose.connect('mongodb://localhost/budget_db');
 
 var Transaction = new mongoose.Schema({
 	source: String,

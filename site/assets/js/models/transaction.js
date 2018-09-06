@@ -1,4 +1,4 @@
-// assets/js/transaction.js
+// assets/js/transaction.j
 
 var app = app || {};
 
@@ -10,9 +10,5 @@ app.Transaction = Backbone.Model.extend({
 		outflow: true
 	},
 
-	toggle: function() {
-		this.save({
-			outflow: !this.get('outflow')
-		})
-	}
+	urlRoot: "/transactions"
 })
