@@ -10,7 +10,13 @@ app.AppView = Backbone.View.extend({
   },
 
   initialize: function() {
-    this.$input = this.$('#new-trans');
+    this.$source = this.$('#new-source');
+    this.$category = this.$('#new-category');
+    this.$amount = this.$('#new-amount');
+    this.$outflow = this.$('#new-outflow');
+    this.$inflow = this.$('#new-inflow');
+    this.$allRadio = this.$('input[name="new-outflow"]');
+    this.$addtrans = this.$('#add-trans');
     this.$footer = this.$('#footer');
     this.$main = this.$('#main');
 
@@ -42,19 +48,28 @@ app.AppView = Backbone.View.extend({
 
   newAttributes: function() {
     return {
-      source: this.$input.val().trim(),
-      category: '',
-      amount: '',
-      outflow: '',
+      source: this.$source.val().trim(),
+      category: this.$category.val().trim(),
+      amount: this.$amount.val().trim(),
+      outflow: function() {
+        if(this.$inflow.prop('checked', true)) {
+          return false;
+        } else {
+          return true;
+        }
+      }
     }
   },
 
   createOnEnter: function(event) {
-    if(event.which !== ENTER_KEY || !this.$input.val().trim()) {
+    if(event.which !== ENTER_KEY || !this.$amount.val().trim()) {
       return;
     }
 
     app.Transactions.create(this.newAttributes());
-    this.$input.val('');
+    this.$source.val('');
+    this.$category.val('');
+    this.$amount.val('');
+    this.$allRadio.attr('checked', false);
   }
 })
