@@ -8,6 +8,17 @@
 </head>
 <body>
 
+<script type="text/template" id="trans-template">
+	<div class="view">
+		<label><%= source %></label>
+		<label><%= category %></label>
+		<label><%= amount %></label>
+	</div>
+	<input value="<%= source %>" class="edit">
+</script>
+<script type="text/template" id="stats-template">
+	<div>To be continued...</div>
+</script>
 <script src="js/lib/jquery-3.3.1.min.js"></script>
 <script src="js/lib/underscore.js"></script>
 <script src="js/lib/backbone.js"></script>

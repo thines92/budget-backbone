@@ -4,7 +4,7 @@ app.TransView = Backbone.View.extend({
 	
 	tagName: 'li',
 
-	template: _.template($("#tran-template").html()),
+	template: _.template($("#trans-template").html()),
 
 	events: {
 		'click .destroy': 'deleteTran',
