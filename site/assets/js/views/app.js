@@ -3,10 +3,10 @@ var app = app || {};
 app.AppView = Backbone.View.extend({
   el: '#transapp',
 
-  statsTemplate: _.template($('#stats-template').html()),
+  statsTemplate: _.template($('#trans-template').html()),
 
   events: {
-    'click #add-trans': 'addOne',
+    'click #add-trans': 'create',
     'keypress #new-amount': 'createOnEnter'
   },
 
@@ -53,7 +53,7 @@ app.AppView = Backbone.View.extend({
       category: this.$category.val().trim(),
       amount: this.$amount.val().trim(),
       outflow: function() {
-        if(this.$inflow.prop('checked', true)) {
+        if(this.$inflow.prop('checked')) {
           return false;
         } else {
           return true;
@@ -62,15 +62,19 @@ app.AppView = Backbone.View.extend({
     }
   },
 
-  createOnEnter: function(event) {
-    if(event.which !== ENTER_KEY || !this.$amount.val().trim()) {
-      return;
-    }
-
+  create: function() {
     app.Transactions.create(this.newAttributes());
     this.$source.val('');
     this.$category.val('');
     this.$amount.val('');
     this.$allRadio.prop('checked', false);
+  },
+
+  createOnEnter: function(event) {
+    if(event.which !== ENTER_KEY || !this.$amount.val().trim()) {
+      return;
+    }
+
+    this.create();
   }
 })
