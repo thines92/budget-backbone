@@ -9,7 +9,7 @@ var application_root = __dirname,
 var app = express();
 
 //Where to serve static content
-app.use( express.static( path.join( application_root,'../', 'site') ) );
+app.use( express.static( path.join( application_root, 'site') ) );
 app.use(bodyParser());
 
 //Start server
@@ -20,5 +20,5 @@ app.listen( port, function() {
 });
 
 app.get('/', function(req, res) {
-	res.send('root')
+	res.send(application_root);
 })
