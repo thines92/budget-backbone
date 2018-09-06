@@ -7,6 +7,23 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
+	<section id="transapp">
+		<header class="header">
+			<h4>Transactions</h4>
+			<div class="trans-inputs">
+				<input class="new-source" placeholder="Source" autofocus>
+				<input class="new-category" placeholder="Category">
+				<input class="new-amount" placeholder="Amount">
+				<input type="radio" name="new-outflow" id="new-inflow">Income
+				<input type="radio" name="new-outflow" id="new-outflow">Expense
+			</div>
+			<input type="button" id="add-trans" value="Add Transaction">
+		</header>
+	</section>
+	<section id="main">
+		<ul class="trans-list"></ul>
+	</section>
+	<footer></footer>
 
 <script type="text/template" id="trans-template">
 	<div class="view">
