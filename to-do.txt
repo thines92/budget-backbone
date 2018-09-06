@@ -1,2 +1,1 @@
-9/5/18: finish functions on views/transactions.js
-		setup views/app.js & app.js
+9/5/18: setup views/app.js & app.js

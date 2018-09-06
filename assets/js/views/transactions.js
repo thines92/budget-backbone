@@ -37,6 +37,10 @@ app.TransView = Backbone.View.extend({
 		};
 
 		this.$el.removeClass('editing');
+	},
+
+	remove: function() {
+		this.model.destroy();
 	}
 
 })

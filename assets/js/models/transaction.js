@@ -5,7 +5,7 @@ var app = app || {};
 app.Transaction = Backbone.Model.extend({
 	defaults: {
 		source: '',
-		date: '',
+		category: '',
 		amount: ,
 		outflow: true
 	}
