@@ -10,7 +10,7 @@ var app = express();
 
 //Where to serve static content
 app.use( express.static( path.join( application_root, 'site') ) );
-app.use(bodyParser());
+app.use(bodyParser.json());
 
 //Start server
 var port = 4711;
@@ -23,7 +23,7 @@ app.get('/', function(req, res) {
 	res.send(application_root);
 })
 
-app.get('/transactions', function(req, res) {
+app.get('/', function(req, res) {
 	return TransactionModel.find(function(err, transactions) {
 		if(!err) {
 			return res.send(transactions);
@@ -33,7 +33,7 @@ app.get('/transactions', function(req, res) {
 	});
 });
 
-app.post('/transactions', function(req, res) {
+app.post('/', function(req, res) {
 	var transaction = new TransactionModel({
 		source: req.body.source,
 		category: req.body.category,
@@ -69,7 +69,7 @@ app.configure(function() {
 
 	app.use(app.router);
 
-	app.use(express.static(path.join(application_root, 'site')));
+	app.use(express.static(path.join(application_root, '/site')));
 
 	app.use(express.errorHandler({ dumbExceptions: true, showStack: true}));
 })
