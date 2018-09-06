@@ -1,12 +1,13 @@
 var app = app || {};
 
 app.AppView = Backbone.View.extend({
-  el: '#transApp',
+  el: '#transapp',
 
-  statsTemplate: _.template($('#stats-template').html());
+  statsTemplate: _.template($('#stats-template').html()),
 
   events: {
-    'keypress #new-trans': 'createOnEnter',
+    'click #add-trans': 'addOne',
+    'keypress #new-amount': 'createOnEnter'
   },
 
   initialize: function() {
@@ -70,6 +71,6 @@ app.AppView = Backbone.View.extend({
     this.$source.val('');
     this.$category.val('');
     this.$amount.val('');
-    this.$allRadio.attr('checked', false);
+    this.$allRadio.prop('checked', false);
   }
 })

@@ -3,17 +3,17 @@
 <head>
 	<title></title>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 	<section id="transapp">
 		<header class="header">
 			<h4>Transactions</h4>
 			<div class="trans-inputs">
-				<input class="new-source" placeholder="Source" autofocus>
-				<input class="new-category" placeholder="Category">
-				<input class="new-amount" placeholder="Amount">
+				<input id="new-source" placeholder="Source" autofocus>
+				<input id="new-category" placeholder="Category">
+				<input id="new-amount" placeholder="Amount">
 				<input type="radio" name="new-outflow" id="new-inflow">Inflow
 				<input type="radio" name="new-outflow" id="new-outflow">Outflow
 			</div>
@@ -21,7 +21,7 @@
 		</header>
 	</section>
 	<section id="main">
-		<ul class="trans-list"></ul>
+		<ul id="trans-list"></ul>
 	</section>
 	<footer></footer>
 
@@ -31,20 +31,19 @@
 		<label><%= category %></label>
 		<label><%= amount %></label>
 	</div>
-	<input value="<%= source %>" class="edit">
 </script>
 <script type="text/template" id="stats-template">
 	<div>To be continued...</div>
 </script>
-<script src="js/lib/jquery-3.3.1.min.js"></script>
-<script src="js/lib/underscore.js"></script>
-<script src="js/lib/backbone.js"></script>
-<script src="js/lib/backbone.localStorage.js"></script>
-<script src="js/models/todo.js"></script>
-<script src="js/collections/todos.js"></script>
-<script src="js/views/todos.js"></script>
-<script src="js/views/app.js"></script>
-<script src="js/routers/router.js"></script>
-<script src="js/app.js"></script>
+<script src="assets/js/lib/jquery-3.3.1.min.js"></script>
+<script src="assets/js/lib/underscore.js"></script>
+<script src="assets/js/lib/backbone.js"></script>
+<script src="assets/js/lib/backbone.localStorage.js"></script>
+<script src="assets/js/models/transaction.js"></script>
+<script src="assets/js/collections/transactions.js"></script>
+<script src="assets/js/views/transactions.js"></script>
+<script src="assets/js/views/app.js"></script>
+<script src="assets/js/routers/router.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>

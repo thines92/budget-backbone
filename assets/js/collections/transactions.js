@@ -1,9 +1,9 @@
-var app = app{};
+var app = app || {};
 
-app.TransList = Backbone.Collection.extend({
+var TransList = Backbone.Collection.extend({
 	model: app.Transaction,
 
 	localStorage: "?"
-})
+});
 
 app.Transactions = new TransList();

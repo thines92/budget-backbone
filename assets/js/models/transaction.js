@@ -6,13 +6,13 @@ app.Transaction = Backbone.Model.extend({
 	defaults: {
 		source: '',
 		category: '',
-		amount: ,
+		amount: '',
 		outflow: true
-	}
+	},
 
 	toggle: function() {
 		this.save({
-			outflow: !this.get('outflow');
+			outflow: !this.get('outflow')
 		})
 	}
 })
