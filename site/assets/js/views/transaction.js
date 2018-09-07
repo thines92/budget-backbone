@@ -5,7 +5,7 @@ app.TransView = Backbone.View.extend({
 	tagName: 'li',
 
 	template: _.template($("#trans-template").html()),
-
+	
 	events: {
 		'click .destroy': 'deleteTran',
 		'dblclick label': 'editTran',
@@ -13,17 +13,9 @@ app.TransView = Backbone.View.extend({
 		'blur .edit': 'close'
 	},
 
-	initialize: function() {
-		this.collection = new app.Transaction();
-		this.collection.fetch({reset:true});
-		this.render();
-		this.listenTo(this.model, 'change', this.render);
-		this.listenTo(this.model, 'destroy', this.remove);
-	},
-
 	render: function() {
 		this.$el.html(this.template(this.model.attributes));
-		this.$input = this.$('edit');
+		// this.$input = this.$('edit');
 		return this;
 	},
 

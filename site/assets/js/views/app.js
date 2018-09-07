@@ -3,78 +3,84 @@ var app = app || {};
 app.AppView = Backbone.View.extend({
   el: '#transapp',
 
-  statsTemplate: _.template($('#trans-template').html()),
-
   events: {
-    'click #add-trans': 'create',
+    'click #add-trans': 'addTrans',
     'keypress #new-amount': 'createOnEnter'
   },
 
-  initialize: function() {
-    this.$source = this.$('#new-source');
-    this.$category = this.$('#new-category');
-    this.$amount = this.$('#new-amount');
-    this.$outflow = this.$('#new-outflow');
-    this.$inflow = this.$('#new-inflow');
-    this.$allRadio = this.$('input[name="new-outflow"]');
-    this.$addtrans = this.$('#add-trans');
-    this.$footer = this.$('#footer');
-    this.$main = this.$('#main');
+  addTrans: function(e) {
+    e.preventDefault();
 
-    this.listenTo(app.Transactions, 'add', this.addOne);
-    this.listenTo(app.Transactions, 'all', this.render);
+    var formData = {};
 
-    app.Transactions.fetch();
+    $("#addTrans").children('input').each(function(i, el) {
+      if($(el).val() !== '') {
+        formData[el.id] = $(el).val();
+      }
+    });
+
+    this.collection.add(new app.Transaction(formData));
+  },
+
+  initialize: function(initialTrans) {
+
+    this.collection = new TransList(initialTrans);
+    this.render();
+
+    this.listenTo(this.collection, 'add', this.renderTrans);
   },
 
   render: function() {
-    if(app.Transactions.length) {
-      this.$main.show();
-      this.$footer.show();
-    } else {
-      this.$main.hide();
-      this.$footer.hide();
-    }
+    this.collection.each(function( item) {
+      this.renderTrans(item);
+    }, this)
   },
 
-  addOne: function(transaction) {
-    var view = new app.TransView({model: transaction});
-    $('#trans-list').append(view.render().el);
+  renderTrans: function(item) {
+    var transView = new app.TransView({
+      model: item
+    });
+    this.$el.append(transView.render().el);
   },
 
-  addAll: function() {
-    this.$('#trans-list').html('');
-    app.Transactions.each(this.addOne, this);
-  },
+  // addOne: function(transaction) {
+  //   var view = new app.TransView({model: transaction});
+  //   $('#trans-list').append(view.render().el);
+  // },
 
-  newAttributes: function() {
-    return {
-      source: this.$source.val().trim(),
-      category: this.$category.val().trim(),
-      amount: this.$amount.val().trim(),
-      outflow: function() {
-        if(this.$inflow.prop('checked')) {
-          return false;
-        } else {
-          return true;
-        }
-      }
-    }
-  },
+  // addAll: function() {
+  //   this.$('#trans-list').html('');
+  //   app.Transactions.each(this.addOne, this);
+  // },
 
-  create: function() {
-    app.Transactions.create(this.newAttributes());
-    this.$source.val('');
-    this.$category.val('');
-    this.$amount.val('');
-    this.$allRadio.prop('checked', false);
-  },
+  // newAttributes: function() {
+  //   return {
+  //     source: this.$source.val().trim(),
+  //     category: this.$category.val().trim(),
+  //     amount: this.$amount.val().trim(),
+  //     outflow: function() {
+  //       if(this.$inflow.prop('checked')) {
+  //         return false;
+  //       } else {
+  //         return true;
+  //       }
+  //     }
+  //   }
+  // },
 
-  createOnEnter: function(event) {
-    if(event.which !== ENTER_KEY || !this.$amount.val().trim()) {
-      return;
-    }
+  // create: function() {
+  //   app.Transactions.create(this.newAttributes());
+  //   this.$source.val('');
+  //   this.$category.val('');
+  //   this.$amount.val('');
+  //   this.$allRadio.prop('checked', false);
+  // },
 
-    this.create();
-  }
+  // createOnEnter: function(event) {
+  //   if(event.which !== ENTER_KEY || !this.$amount.val().trim()) {
+  //     return;
+  //   }
+
+  //   this.addTrans();
+  // }
 })

@@ -10,14 +10,16 @@
 	<section id="transapp">
 		<header class="header">
 			<h4>Transactions</h4>
-			<div class="trans-inputs">
-				<input id="new-source" placeholder="Source" autofocus>
-				<input id="new-category" placeholder="Category">
-				<input id="new-amount" placeholder="Amount">
-				<input type="radio" name="new-outflow" id="new-inflow">Inflow
-				<input type="radio" name="new-outflow" id="new-outflow">Outflow
+			<div>
+				<form action="#" id="addTrans">
+					<input id="new-source" placeholder="Source" autofocus>
+					<input id="new-category" placeholder="Category">
+					<input id="new-amount" placeholder="Amount">
+					<input type="radio" name="new-outflow" id="new-inflow">Inflow
+					<input type="radio" name="new-outflow" id="new-outflow">Outflow
+					<input type="button" id="add-trans" value="Add Transaction">
+				</form>
 			</div>
-			<input type="button" id="add-trans" value="Add Transaction">
 		</header>
 	</section>
 	<section id="main">
@@ -40,7 +42,7 @@
 <script src="assets/js/lib/backbone.js"></script>
 <script src="assets/js/models/transaction.js"></script>
 <script src="assets/js/collections/transactions.js"></script>
-<script src="assets/js/views/transactions.js"></script>
+<script src="assets/js/views/transaction.js"></script>
 <script src="assets/js/views/app.js"></script>
 <script src="assets/js/routers/router.js"></script>
 <script src="assets/js/app.js"></script>

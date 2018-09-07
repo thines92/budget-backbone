@@ -5,4 +5,4 @@ var TransList = Backbone.Collection.extend({
 	url: "/transactions"
 });
 
-app.Transactions = new TransList();
+// app.Transactions = new TransList();
