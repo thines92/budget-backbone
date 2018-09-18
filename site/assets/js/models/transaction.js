@@ -10,5 +10,5 @@ app.Transaction = Backbone.Model.extend({
 		outflow: true
 	},
 
-	urlRoot: "/transactions"
+	url: "http:localhost:4711/transcations"
 })

@@ -8,6 +8,14 @@ app.AppView = Backbone.View.extend({
     'keypress #amount': 'createOnEnter'
   },
 
+  initialize: function(initialTrans) {
+
+    this.collection = new TransList(initialTrans);
+    this.render();
+
+    this.listenTo(this.collection, 'add', this.render);
+  },
+
   addTrans: function(e) {
     e.preventDefault();
 
@@ -22,16 +30,8 @@ app.AppView = Backbone.View.extend({
     this.collection.add(new app.Transaction(formData));
   },
 
-  initialize: function(initialTrans) {
-
-    this.collection = new TransList(initialTrans);
-    this.render();
-
-    this.listenTo(this.collection, 'add', this.renderTrans);
-  },
-
   render: function() {
-    this.collection.each(function( item) {
+    this.collection.each(function(item) {
       this.renderTrans(item);
     }, this)
   },

@@ -6,12 +6,7 @@ app.TransView = Backbone.View.extend({
 
 	template: _.template($("#trans-template").html()),
 	
-	events: {
-		'click .destroy': 'deleteTran',
-		'dblclick label': 'editTran',
-		'keypress .edit': 'updateOnEnter',
-		'blur .edit': 'close'
-	},
+	events: {},
 
 	render: function() {
 		this.$el.html(this.template(this.model.attributes));

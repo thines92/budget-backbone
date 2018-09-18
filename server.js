@@ -14,45 +14,62 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //Start server
-var port = 4711;
+var port = 27017;
 
-mongoose.connect('mongodb://localhost/budget_db');
+var connection = mongoose.createConnection('mongodb://127.0.0.1:27017/budget');
+mongoose.connect('mongodb://localhost/budget');
 
 var Transaction = new mongoose.Schema({
 	source: String,
 	category: String,
-	amount: Number,
-	outflow: Boolean
+	amount: String,
 });
 
-var TransactionModel = mongoose.model('transaction', Transaction);
+var TransactionModel = connection.model('transaction', Transaction);
 
 app.listen( port, function() {
     console.log( 'Express server listening on port %d in %s mode', port, app.settings.env );
 });
 
-app.get('/', function(req, res) {
-	res.send(application_root);
+app.get('/api', function(req, res) {
+	res.send('Transaction API is running');
 })
 
-app.get('/transactions', function(req, res) {
+// app.get('/api/transactions', function(req, res) {
+// 	res.send(Transaction)
+// 	console.log(res.domain);
+// })
+
+app.get('/api/transactions', function(req, res) {
 	return TransactionModel.find(function(err, transactions) {
 		if(!err) {
-			res.send(transactions);
+			return res.send(transactions);
 		} else {
 			return console.log(err);
 		}
 	});
 });
 
-app.post('/transactions', function(req, res) {
+app.post('/api/transactions', function(req, res) {
 	var transaction = new TransactionModel({
 		source: req.body.source,
 		category: req.body.category,
 		amount: req.body.amount,
-		outflow: req.body.outflow
 	});
-	console.log(transaction);
+
+	transaction.save();
+
+	// transaction.save(function(err) {
+	// 	if(!err) {
+	// 		console.log('created');
+	// 		res.send('workinggggg');
+	// 	} else {
+	// 		console.log(err);
+	// 	}
+	// })
+	
+
+	// console.log("transaction: " + transaction);
 
 	// transaction.save()
 	// 			.then(item => {
@@ -62,15 +79,16 @@ app.post('/transactions', function(req, res) {
 	// 				res.status(400).send('unable to save');
 	// 			})
 
-	return transaction.save(function(err) {
-		if(!err) {
-			console.log('created');
-			res.send('working!');
-		} else {
-			// console.log(err);
-			res.send('working too');
-		}
-	})
+	
+
+	// var myData = new TransactionModel(req.body);
+	// myData.save()
+	// 	  .then(item => {
+	// 	  	res.send('item saved to database')
+	// 	  })
+	// 	  .catch(err => {
+	// 		res.status(400).send("unable to save to database");
+	// 	  })
 })
 
 app.configure(function() {
